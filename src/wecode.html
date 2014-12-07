@@ -1,0 +1,238 @@
+<html>
+<title>Wecode playground</title>
+<head>
+<link rel="stylesheet" href="bubble1.css" type="text/css"/>
+<link rel="stylesheet" href="texteffects.css" type="text/css"/>
+
+<!-- JS libraries -->
+<!--script type="text/javascript" src="../lib/acorn-interpreter/acorn_interpreter.js"></script-->  
+<script type="text/javascript" src="../lib/acorn-interpreter/acorn.js"></script>          
+<script type="text/javascript" src="../lib/acorn-interpreter/interpreter.js"></script>          
+<script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../lib/lettering/jquery.lettering.js" defer></script>
+<script type="text/javascript" src="../lib/tween.js-master/build/tween.min.js"></script>
+<script type="text/javascript" src="../lib/tween.js-master/build/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="../lib/imagesloaded-master/imagesloaded.pkgd.min.js"></script>
+
+<!-- Wecode files -->
+<script type="text/javascript" src="./runtime.js" defer></script>
+<script type="text/javascript" src="./kernel.js" defer></script>
+
+<script>
+/**
+* Main code starts here
+*/
+
+var testcode = [
+  { 'event': 
+      'start',
+    'code':
+     "stage.setTextContent('HI', 'leftcol');\
+      stage.setHTMLContent('<img src=\"../media/black-cat.png\" \
+        style=\"width:32px; height:32px;\">', 'rightcol');\
+      stage.setTextContent('Title goes here', 'title');\
+      stage.setTextContent('I did it at last');\
+      stage.setTextEffect('typewriter');\
+      var sp = stage.getSprite('ball');\
+      sp.glide(130,28, 1000);\
+      sp.glide(110,0, 1000);\
+      stage.wait(500);\
+      sp.glide(50,100, 1000);\
+      sp.rotate(-135, 1000);\
+      sp.turn(45);\
+      "},
+  { 'event': 
+      'start',
+    'code':
+      "stage.wait(500);\
+      var sp1 = stage.getSprite('ball2');\
+      sp1.goto(20,120);\
+      sp1.glide(40,78, 800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      "}];
+  /*
+    ;"
+    //sp.scale(2);\
+    //sp.opacity(0.5);\
+    //stage.setTextEffect('typewriter')\
+    //;"
+    //var sp = stage.createSprite('ball', ['magic_ball.png', 'ball-6x6.png'], 0.8, '../media');\
+
+/*      "stage.createBubble(4);\
+    stage.setTextContent('HI', 'leftcol');\
+    stage.setHTMLContent('<img src=\"../media/black-cat.png\" \
+      style=\"width:32px; height:32px;\">', 'rightcol');\
+    stage.setTextContent('Title goes here', 'title');\
+    stage.setTextContent('I did it at last');\
+    var sp = stage.createSprite('ball', ['magic_ball.png', 'ball-6x6.png'], 0.8, '../media');\
+    sp.goto(30,80);\
+    sp.scale(2);\
+    sp.opacity(0.5);\
+    wait(1000);\
+    stage.setTextEffect('typewriter');"*/
+      
+$(function() {
+  //Init the env
+  Stage.setContainer('div#chat_client');
+  Stage.startMainAnimationLoop();
+  
+  // 
+  var stage = new Stage('me');
+  stage.createBubble(4);
+  stage.createSprite('ball', ['black-cat.png', 'ball-6x6.png'], 1.5, '../media');
+  stage.createSprite('ball2', ['magic_ball.png', 'ball-6x6.png'], 1.5, '../media');
+  new Kernel(stage).run(testcode);
+  //new Kernel(new Stage('other')).run(testcode);
+  //new Kernel(new Stage('other')).run(testcode);
+  //new Kernel(new Stage('me')).run(testcode);
+  //new Kernel(new Stage('other')).run(testcode);
+  //kernel = new Kernel(stage);
+  //kernel.run(testcode);
+});
+  
+</script>
+</head>
+
+<body>
+  <div id='bg'></div>
+  <div id='chat_client'></div>
+</body>
+</html>
+
+<!--  
+  var s1 = new Stage('me');
+  s1.createChatMessage(4);
+  s1.setTextContent('HI', 'leftcol');
+  s1.setHTMLContent('<img src="http://freeiconbox.com/icon/256/29670.png" style="width:32px; height:32px;">', 'rightcol');
+  s1.setTextContent('Title goes here', 'title');
+  s1.setTextContent('I did it at last');
+  //var sp = new Sprite('ball', ['magic_ball.png', 'ball-6x6.png'], 0.8, '../media');
+  var sp = new Sprite('ball', 'magic_ball.png', 0.8, '../media');
+  s1.addSprite(sp);
+  sp.goto(30,80);
+  sp.scale(2);
+  sp.opacity(0.5);
+  s1.setTextEffect('typewriter');
+  
+  var s2 = new Stage('me');
+  s2.createChatMessage(1);
+  s2.setTextContent('Oh la la');
+  s2.setBackgroundColor('black');
+  s2.setTextEffect('neon');
+  s2.setTextEffect('typewriter');
+  
+  var s3 = new Stage('other');
+  s3.createChatMessage(1);
+  s3.setTextContent('I told you that I could make this work eventually :-)');
+  s3.setBackgroundColor('black');
+  s3.setTextEffect('fire');
+  s3.setFontSize(1.3);
+  
+  var s4 = new Stage('other');
+  s4.createChatMessage(2);
+  s4.setTextContent("Here's what I say to you", 'title');
+  s4.setBackgroundColor('black', 'title');
+  s4.setTextEffect('fire', 'title');
+  s4.setTextContent("Life is sweeeeeeeeet");
+  s4.setTextEffect('typewriter');
+
+  //move(sp.getElement()).duration('1s').to(120,30).end();
+  //sp.nextCostume();
+  
+  //window.setInterval(function(){sp.nextCostume();},1000);
+
+  /*
+  var moveBack = move(sp.getElement())
+  //.scale(0.5)
+  .x(0);
+
+move(sp.getElement())
+  //.scale(2)
+  .x(100)
+  .then(moveBack)
+  .end(function(){sp.nextCostume();});
+
+window.setTimeout( function() {
+    move(sp.getElement())
+      .to(100,100)
+      .add('left',20)
+      .scale(3)
+      //.duration('2s')
+      .then()
+        .add('left',60)
+        //.delay('5s')
+        .then()
+          .add('left',140)
+          //.duration('3s')
+          .end();
+  }, 1000);
+  window.setTimeout( function() {
+    move(sp.getElement())
+      //.to(500, 200)
+      .rotate(180)
+      //.scale(.5)
+      .set('background-color', '#888')
+      .set('border-color', 'black')
+      .duration('2s')
+      //.skew(50, -10)
+      .then()
+        .set('opacity', 0)
+        .duration('0.3s')
+        .scale(0.1)
+        .pop()
+      .end();
+  }, 3000 );*/
+
+
+
+  b1 = new Stage('me');
+  b1.createChatMessage(1);
+  b1.setTextContent('Oh la la');
+  b1.setBackgroundColor('black');
+  b1.setTextEffect('neon');
+  
+  b2 = new Stage('other');
+  b2.createChatMessage(1);
+  b2.setTextContent('I told you that I could make this work eventually :-)');
+  b2.setBackgroundColor('black');
+  b2.setTextEffect('fire');
+  
+  b3 = new Stage('other');
+  b3.createChatMessage(2);
+  b3.setTextContent("Here's what I say to you", 'title');
+  b3.setBackgroundColor('black', 'title');
+  b3.setTextEffect('fire', 'title');
+  b3.setTextContent("Life is sweeeeeeeeet");
+  
+  b2 = new Stage('me');
+  b2.createChatMessage(4);
+  b2.setTextContent('HI', 'leftcol');
+  b2.setTextContent('HO', 'rightcol');
+  b2.setTextContent('Title goes here', 'title');
+  b2.setTextContent('I did it at last');
+  */
+  /*createBubble(1, 'me');
+  b2 = createBubble(3, 'other');
+  b3 = createBubble(2, 'me');
+  b1.find('#message').text('Hi there');
+  b2.find('#title').text('This message is cool');
+  b2.find('#message').text('AH EH OH');     
+  b2.find('#rightcol').html('<img src="http://freeiconbox.com/icon/256/29670.png" style="width:32px; height:32px;">');
+
+
+  //var scriptLink1 = $('<script src="./lib/move-master/move.js"></'+'script>');
+  //$('head').append(scriptLink1);
+  //var scriptLink2 = $('<script src="./wc-runtime.js"></'+'script>');
+  //$('head').append(scriptLink2);
+  
+  //window.setTimeout( window.main, 0);
+
+  
+//function main() {
+  
+  //Sprite.prototype.init();
+
+-->

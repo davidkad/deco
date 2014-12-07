@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Blockly Wecode Playground</title>
+<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/logic.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/loops.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/math.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/text.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/lists.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/colour.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/variables.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/base/procedures.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/wecode/wecode.js"></script>
+<script type="text/javascript" src="blockly/msg/messages.js"></script>
+<!-- Define the blocks here -->
+<script type="text/javascript" src="blockly/blocks/base/logic.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/loops.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/math.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/text.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/lists.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/colour.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/variables.js"></script>
+<script type="text/javascript" src="blockly/blocks/base/procedures.js"></script>
+<script type="text/javascript" src="blockly/blocks/wecode/wecode.js"></script>
+<!-- Load the Google Drive SDK Realtime libraries. -->
+<!--script type="text/javascript" src="https://apis.google.com/js/api.js"></script-->
+
+<!-- JS libraries -->
+<!--script type="text/javascript" src="../lib/acorn-interpreter/acorn_interpreter.js"></script-->  
+<script type="text/javascript" src="../lib/acorn-interpreter/acorn.js"></script>          
+<script type="text/javascript" src="../lib/acorn-interpreter/interpreter.js"></script>          
+<script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../lib/lettering/jquery.lettering.js"></script>
+<script type="text/javascript" src="../lib/tween.js-master/tween.min.js"></script>
+<script type="text/javascript" src="../lib/tween.js-master/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="../lib/imagesloaded-master/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="../lib/image-picker-master/image-picker/image-picker.min.js"></script>
+
+<!-- Wecode files -->
+<!--script type="text/javascript" src="./playground.js" defer></script-->
+<script type="text/javascript" src="./runtime.js" defer></script>
+<script type="text/javascript" src="./kernel.js" defer></script>
+
+<!-- css files -->
+<link rel="stylesheet" href="css/playground.css" type="text/css"/>
+<link rel="stylesheet" href="css/bubble.css" type="text/css"/>
+<link rel="stylesheet" href="css/texteffects.css" type="text/css"/>
+<link rel="stylesheet" href="../lib/image-picker-master/image-picker/image-picker.css" type="text/css"/>
+  
+<script>
+$(function () {
+  startBlockly($('toolbox'), $('blocklyEditor'));
+});
+
+function overlay(mode) {
+
+  function showControls(show) {
+    $('#overlay').css('display', show ? 'initial' : 'none');
+    // hide these buttons when showing the overlay
+    $('#playButton').css('visibility', show ? 'hidden' : 'visible');
+    $('#codeButton').css('visibility', show ? 'hidden' : 'visible');
+  }
+
+  showControls("play,code".indexOf(mode) > -1);
+  switch(mode) {
+    case 'play':
+      play('#chatClient');
+      break;
+    case 'code':
+      break;
+  }
+}
+
+//var block = null;
+function startBlockly(toolbox, editor) {
+  Blockly.inject(document.getElementById('blocklyEditor'),
+          {rtl: (document.location.search == '?rtl'),
+           path: '../',
+           toolbox: document.getElementById('toolbox'),
+           comments: true,
+           disable: true,
+           collapse: true,
+           realtime: false,
+           realtimeOptions:
+             {clientId: 'YOUR CLIENT ID GOES HERE',
+              chatbox: {elementId: 'chatbox'},
+              collabElementId: 'collaborators'}});
+  if(Blockly.Realtime.isEnabled()) {enableRealtimeSpecificUi();}
+}
+
+
+/**
+* Main code starts here
+*/
+
+var testcode = [
+  { 'event': 
+      'start',
+    'code':
+     "stage.setTextContent('HI', 'leftcol');\
+      stage.setHTMLContent('<img src=\"../media/black-cat.png\" \
+        style=\"width:32px; height:32px;\">', 'rightcol');\
+      stage.setTextContent('Title goes here', 'title');\
+      stage.setTextContent('I did it at last');\
+      stage.setTextEffect('typewriter');\
+      var sp = stage.getSprite('ball');\
+      sp.glide(130,28, 1000);\
+      sp.glide(110,0, 1000);\
+      stage.wait(500);\
+      sp.glide(50,100, 1000);\
+      sp.rotate(-135, 1000);\
+      sp.turn(45);\
+      "},
+  { 'event': 
+      'start',
+    'code':
+      "stage.wait(500);\
+      var sp1 = stage.getSprite('ball2');\
+      sp1.goto(20,120);\
+      sp1.glide(40,78, 800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      sp1.jump(50,90,800);\
+      "}];
+  /*
+    ;"
+    //sp.scale(2);\
+    //sp.opacity(0.5);\
+    //stage.setTextEffect('typewriter')\
+    //;"
+    //var sp = stage.createSprite('ball', ['magic_ball.png', 'ball-6x6.png'], 0.8, '../media');\
+
+    "stage.createBubble(4);\
+    stage.setTextContent('HI', 'leftcol');\
+    stage.setHTMLContent('<img src=\"../media/black-cat.png\" \
+      style=\"width:32px; height:32px;\">', 'rightcol');\
+    stage.setTextContent('Title goes here', 'title');\
+    stage.setTextContent('I did it at last');\
+    var sp = stage.createSprite('ball', ['magic_ball.png', 'ball-6x6.png'], 0.8, '../media');\
+    sp.goto(30,80);\
+    sp.scale(2);\
+    sp.opacity(0.5);\
+    wait(1000);\
+    stage.setTextEffect('typewriter');"*/
+      
+function play(container) {
+  //Init the env
+  Stage.setContainer(container);
+  Stage.startMainAnimationLoop();
+  
+  var stage1 = new Stage('me');
+  stage1.createBubble(4);
+  stage1.createSprite('ball', ['black-cat.png', 'ball-6x6.png'], 1.5, '../media');
+  stage1.createSprite('ball2', ['magic_ball.png', 'ball-6x6.png'], 1.5, '../media');
+  new Kernel(stage1).run(testcode);
+  
+  var stage2 = new Stage('other');
+  stage2.createBubble(4);
+  stage2.createSprite('ball', ['black-cat.png', 'ball-6x6.png'], 1.5, '../media');
+  stage2.createSprite('ball2', ['magic_ball.png', 'ball-6x6.png'], 1.5, '../media');
+  new Kernel(stage2).run(testcode);
+  
+  var stage3 = new Stage('me');
+  stage3.createBubble(4);
+  stage3.createSprite('ball', ['black-cat.png', 'ball-6x6.png'], 1.5, '../media');
+  stage3.createSprite('ball2', ['magic_ball.png', 'ball-6x6.png'], 1.5, '../media');
+  new Kernel(stage3).run(testcode);
+  //new Kernel(new Stage('other')).run(testcode);
+  //new Kernel(new Stage('me')).run(testcode);
+  //new Kernel(new Stage('other')).run(testcode);
+  //kernel = new Kernel(stage);
+  //kernel.run(testcode);
+}
+</script> 
+</head>
+<body>
+  <div id="blocklyEditor"></div>
+  <div id="rightPanel">
+        <div id="controlsDiv">
+          <div id="playButton" onclick="javascript:overlay('play')">&nbsp;</div>
+          <div id="codeButton" onclick="javascript:overlay('code')">Code</div>
+        </div>
+          <!--div id="playGroundDiv" class="stage"></div>
+        <div id="codeDiv">
+            <p><a href="javascript:toCode('JavaScript')">Generate source code</a></p>
+            <div id="sourceCode">
+                Generated Javascript code comes here
+            </div>
+        </div-->
+  </div>
+  <div id="overlay">
+    <div id="closeButton" onclick="javascript:overlay('close')">&#10005;</div>
+    <div id="phone">    
+      <div id="chatClient"></div>
+    </div>
+  </div>
+    
+  <xml id="toolbox" style="display: none">
+    
+    <category name="Events">
+      <block type="wecode_start_project"></block>
+    </category>
+      
+    <category name="Sprites">
+      <block type="with_sprite">
+        <value name="sprite_name">
+          <block type="text">
+            <field name="TEXT">mysprite</field>
+          </block>
+        </value>  
+      </block>
+      <block type="with_cat"></block>
+      <block type="with_chat_message"></block>
+    </category>
+      
+    <category name="Anim">
+      <block type="set_effect"></block>
+      <block type="set_text_message">
+        <value name="text_message">
+          <block type="text">
+            <field name="TEXT">Hello world!</field>
+          </block>
+        </value>        
+      </block>
+    </category>
+      
+    <category name="Logic">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <!--block type="logic_boolean"></block-->
+      <!--block type="logic_null"></block-->
+      <!--block type="logic_ternary"></block-->
+    </category>
+      
+    <category name="Loops">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="BY">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <!--block type="controls_forEach"></block-->
+      <!--block type="controls_flow_statements"></block-->
+    </category>
+      
+    <category name="Math">
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_single"></block>
+      <block type="math_trig"></block>
+      <!--block type="math_constant"></block-->
+      <!--block type="math_number_property"></block-->
+      <block type="math_change">
+        <value name="DELTA">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <!--block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo"></block>
+      <block type="math_constrain">
+        <value name="LOW">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="HIGH">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block-->
+      <!--block type="math_random_float"></block-->
+    </category>
+      
+    <category name="Text">
+      <block type="text"></block>
+      <!--block type="text_join"></block-->
+      <block type="text_append">
+        <value name="TEXT">
+          <block type="text"></block>
+        </value>
+      </block>
+      <block type="text_length"></block>
+      <block type="text_isEmpty"></block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">text</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase"></block>
+      <block type="text_trim"></block>
+      <block type="text_print"></block>
+    </category>
+      
+    <!-- Variables is a custom type. All the behavior is defined in Blockly code -->
+    <category name="Variables" custom="VARIABLE"></category>
+  </xml>
+
+</body>
+</html>

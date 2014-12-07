@@ -1,0 +1,15 @@
+blockly_svg.js:
+ 	- TBD: here block shape is defined. it's possible to change the shape of the connectors
+
+blockly.js:
+	- TBD: where the block colors are defined (RGB)
+
+toolbox.js:
+	- Done: In Blockly.Toolbox.populate_ where the colors for the toolbox categories are defined
+	- TBD: can create an image node for category in Blockly.Toolbox.createNodeHtml, 
+
+block.js:
+	- Done: In Blockly.Block.prototype.onMouseUp_ had to define the type of the root block, in our case wecode_start_project (this is a f!@#$ing hack)
+    
+field_variable.js:
+    - Should implement a CSS modal dialog as in http://lab.hakim.se/avgrund/
